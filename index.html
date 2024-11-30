@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa sobre JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top">
+        <h1 style="padding-top: 13px;">Pesquisa sobre JavaScript</h1>
+        <hr>
+    </div>
+<div class="sub" style="text-align: center;">
+    <h2>Assincronismo em JavaScript</h2>
+</div>
+<div class="topic">
+    
+    <h3>AJAX (Asynchronous JavaScript And XML)</h3>
+    <p><strong>Definição:</strong> AJAX é uma técnica de desenvolvimento web que permite que o navegador envie e receba dados de um servidor de maneira assíncrona, sem precisar recarregar a página inteira. Embora o "XML" sugira o uso de XML, hoje em dia o AJAX geralmente trabalha com JSON ou outros formatos de dados.</p>
+    <pre><code>let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://api.exemplo.com/dados', true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log('Resposta do servidor:', xhr.responseText);
+            }
+        };
+        
+        xhr.send();</code></pre>
+</div>
+<div class="topic">
+
+        <h3>Promises</h3>
+    <p><strong>Definição:</strong> Uma *Promise* é um objeto que representa a eventual conclusão (ou falha) de uma operação assíncrona. Ela pode estar em um dos três estados: <em>pendente</em>, <em>cumprida</em> ou <em>rejeitada</em>.</p>
+    <pre><code>let minhaPromise = new Promise((resolve, reject) => {
+    let sucesso = true; 
+    if (sucesso) {
+        resolve("Operação bem-sucedida!");
+    } else {
+        reject("Falha na operação.");
+    }
+});
+
+minhaPromise
+    .then(result => console.log(result))
+    .catch(error => console.log(error));</code></pre>
+</div>
+<div class="topic">
+
+    <h3>Fetch API</h3>
+    <p><strong>Definição:</strong> O <code>fetch</code> é uma interface moderna para fazer requisições HTTP de forma assíncrona. Ele retorna uma *Promise*, que é resolvida quando a resposta do servidor chega.</p>
+    <pre><code>fetch('https://api.exemplo.com/dados')
+        .then(response => response.json()) 
+        .then(data => console.log(data))
+        .catch(error => console.log('Erro:', error));</code></pre>
+        
+        <h3>4 Async / Await</h3>
+        <p><strong>Definição:</strong> <code>async</code> e <code>await</code> são palavras-chave introduzidas no ES8 que tornam o código assíncrono mais legível e fácil de entender.</p>
+        <pre><code>async function obterDados() {
+            try {
+                let response = await fetch('https://api.exemplo.com/dados');
+                let data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.log('Erro:', error);
+            }
+        }
+        
+        obterDados();</code></pre>
+</div>
+<div class="topic">
+
+    <h3>5 Vantagens e Desvantagens</h3>
+    <table style="border-color: black; border-collapse: collapse; text-align: center;">
+        <thead>
+            <tr>
+                <th>Técnica</th>
+                <th>Vantagens</th>
+                <th>Desvantagens</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AJAX</td>
+                <td> Compatível com navegadores antigos.<br> Bem estabelecido e amplamente utilizado.</td>
+                <td> Sintaxe mais complexa.<br> Dificuldade com múltiplos callbacks (Callback Hell).</td>
+            </tr>
+            <tr>
+                <td>Promises</td>
+                <td> Permite encadeamento de operações assíncronas.<br> Menos código que callbacks.</td>
+                <td> Pode se tornar difícil de entender com encadeamento longo.<br> Não é suportado em navegadores antigos sem polyfill.</td>
+            </tr>
+            <tr>
+                <td>Fetch API</td>
+                <td> Sintaxe simples e moderna.<br>- Usa Promises, facilitando o encadeamento.</td>
+                <td> Não rejeita *Promises* em erros de HTTP.<br> Requer polyfills para navegadores antigos.</td>
+            </tr>
+            <tr>
+                <td>Async / Await</td>
+                <td> Sintaxe limpa e fácil de entender.<br>- Tratamento de erros com try/catch.</td>
+                <td> Requer funções com <code>async</code>.<br> Precisa de polyfill para navegadores antigos.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="topic">
+
+    <h3>Hoisting</h3>
+    <p><strong>Definição:</strong> O <em>hoisting</em> é o comportamento onde variáveis e funções são elevadas para o topo do escopo antes da execução do código.</p>
+    <pre><code>console.log(x); // undefined
+        var x = 5;
+        
+        console.log(y); // Erro: y não está definida
+        let y = 10;</code></pre>
+</div>
+<div class="topic">
+
+    <h3>Arrow Functions</h3>
+    <p><strong>Definição:</strong> As *Arrow Functions* são uma forma mais concisa de escrever funções, e têm algumas diferenças importantes em relação às funções tradicionais, principalmente no comportamento do <code>this</code>.</p>
+    <pre><code>const soma = (a, b) => a + b;
+        console.log(soma(2, 3)); // 5</code></pre>
+        <p><strong>Diferença no comportamento do <code>this</code>:</strong></p>
+        <pre><code>function FuncaoNormal() {
+            this.valor = 10;
+            setTimeout(function() {
+                console.log(this.valor); // undefined
+            }, 1000);
+        }
+        
+        function FuncaoArrow() {
+            this.valor = 10;
+            setTimeout(() => {
+                console.log(this.valor); // 10
+            }, 1000);
+        }</code></pre>
+</div>
+<div class="topic">
+
+    <h3>Desestruturação (Destructuring)</h3>
+    <p><strong>Definição:</strong> A desestruturação permite extrair valores de arrays ou objetos de maneira mais fácil e legível.</p>
+    <pre><code>const pessoa = { nome: 'João', idade: 25 };
+        const { nome, idade } = pessoa;
+        console.log(nome); // 'João'
+        console.log(idade); // 25</code></pre>
+</div>
+<div class="topic">
+
+    <h3>Closure</h3>
+    <p><strong>Definição:</strong> *Closure* é uma função que lembra do ambiente onde foi criada, mesmo depois de seu escopo original ter sido executado.</p>
+    <pre><code>function criarContador() {
+        let count = 0;
+        return function() {
+            count++;
+            return count;
+        };
+    }
+    
+    const contador = criarContador();
+    console.log(contador()); // 1
+    console.log(contador()); // 2</code></pre>
+</div>
+<div class="sub">
+    <h3>Prossiga para o proximo site:</h3> 
+    <a href="consulta_cep.html"><button>prosseguir</button></a>
+</div>
+</body>
+</html>
